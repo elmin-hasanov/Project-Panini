@@ -2,11 +2,12 @@
 
 import { test, expect } from '@playwright/test';
 
+// Test: Es sollte möglich sein, eine neue Künstlerkarte hinzuzufügen
 test('should add a new artist card', async ({ page }) => {
-  // Seite öffnen
+  // Öffne die Anwendung
   await page.goto('http://localhost:5173');
 
-  // Formular ausfüllen
+  // Formularfelder ausfüllen
   await page.fill('input[placeholder="Name"]', 'Taylor Swift');
   await page.fill('input[placeholder="Alter"]', '34');
   await page.fill('input[placeholder="Genre"]', 'Pop');
@@ -15,12 +16,12 @@ test('should add a new artist card', async ({ page }) => {
   await page.fill('input[placeholder="Plattenlabel"]', 'Republic Records');
   await page.fill(
     'input[placeholder="Bild-URL"]',
-    'https://upload.wikimedia.org/wikipedia/commons/thumb/f/f2/Taylor_Swift_2_-_2019_by_Glenn_Francis.jpg/440px-Taylor_Swift_2_-_2019_by_Glenn_Francis.jpg'
+    'https://de.wikipedia.org/wiki/Tupac_Shakur#/media/Datei:Tupac_graffiti,_Vlasotince,_Serbia.jpg'
   );
 
-  // Karte hinzufügen
+  // Button "Karte hinzufügen" klicken
   await page.click('button:has-text("Karte hinzufügen")');
 
-  // Erwartung: Karte wird angezeigt
+  // Erwartung: Die neue Karte mit dem Namen "Taylor Swift" sollte sichtbar sein
   await expect(page.locator('text=Taylor Swift')).toBeVisible();
 });

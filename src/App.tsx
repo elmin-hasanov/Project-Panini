@@ -4,7 +4,10 @@ import { ArtistCard } from './types/Card';
 import Card from './components/Card';
 
 function App() {
+  // Zustand für alle Karten
   const [cards, setCards] = useState<ArtistCard[]>([]);
+
+  // Zustand für die aktuelle Eingabe im Formular
   const [formData, setFormData] = useState<ArtistCard>({
     name: '',
     alter: 0,
@@ -15,8 +18,11 @@ function App() {
     plattenlabel: '',
     bildUrl: '',
   });
+
+  // Zustand für die aktuelle Editier-Position (null = nichts wird bearbeitet)
   const [editIndex, setEditIndex] = useState<number | null>(null);
 
+  // Eingabefelder aktualisieren
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setFormData({
@@ -25,31 +31,35 @@ function App() {
     });
   };
 
+  // Formular absenden: entweder neue Karte anlegen oder bestehende bearbeiten
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (editIndex !== null) {
-      // Bearbeiten
+      // Wenn eine Karte bearbeitet wird
       const updatedCards = [...cards];
       updatedCards[editIndex] = formData;
       setCards(updatedCards);
-      setEditIndex(null);
+      setEditIndex(null); // Nach Bearbeitung zurücksetzen
     } else {
-      // Neu hinzufügen
+      // Neue Karte hinzufügen
       setCards([...cards, formData]);
     }
-    resetForm();
+    resetForm(); // Formular nach Absenden leeren
   };
 
+  // Karte löschen
   const handleDelete = (index: number) => {
     const updatedCards = cards.filter((_, i) => i !== index);
     setCards(updatedCards);
   };
 
+  // Karte zum Bearbeiten auswählen
   const handleEdit = (index: number) => {
     setFormData(cards[index]);
     setEditIndex(index);
   };
 
+  // Formular zurücksetzen
   const resetForm = () => {
     setFormData({
       name: '',
@@ -63,11 +73,13 @@ function App() {
     });
   };
 
+  // Karten im Local Storage speichern
   const handleSaveToLocalStorage = () => {
     localStorage.setItem('artistCards', JSON.stringify(cards));
     alert('Karten gespeichert!');
   };
 
+  // Karten aus dem Local Storage laden
   const handleLoadFromLocalStorage = () => {
     const savedCards = localStorage.getItem('artistCards');
     if (savedCards) {
@@ -82,6 +94,7 @@ function App() {
     <div className="App">
       <h1>🎵 Artists-Sammelkarten</h1>
 
+      {/* Formular zum Erstellen oder Bearbeiten einer Karte */}
       <form onSubmit={handleSubmit}>
         <input
           name="name"
@@ -134,11 +147,13 @@ function App() {
           onChange={handleChange}
         />
 
+        {/* Dynamischer Buttontext je nachdem ob man editiert oder neu erstellt */}
         <button type="submit">
           {editIndex !== null ? 'Speichern' : 'Karte hinzufügen'}
         </button>
       </form>
 
+      {/* Bereich, wo alle Karten dargestellt werden */}
       <div className="card-grid">
         {cards.map((card, index) => (
           <Card
@@ -149,6 +164,8 @@ function App() {
           />
         ))}
       </div>
+
+      {/* Buttons zum Speichern/Laden aller Karten */}
       <div className="storage-buttons">
         <button type="button" onClick={handleSaveToLocalStorage}>
           Save all Cards
