@@ -1,8 +1,8 @@
 export interface ArtistCard {
   name: string;
-  alter: number;
+  alter: string;
   genre: string;
-  alben: number;
+  alben: string;
   besterSong: string;
   herkunftsland: string;
   plattenlabel: string;

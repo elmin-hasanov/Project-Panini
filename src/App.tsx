@@ -10,9 +10,9 @@ function App() {
   // Zustand für die aktuelle Eingabe im Formular
   const [formData, setFormData] = useState<ArtistCard>({
     name: '',
-    alter: 0,
+    alter: '',
     genre: '',
-    alben: 0,
+    alben: '',
     besterSong: '',
     herkunftsland: '',
     plattenlabel: '',
@@ -63,9 +63,9 @@ function App() {
   const resetForm = () => {
     setFormData({
       name: '',
-      alter: 0,
+      alter: '',
       genre: '',
-      alben: 0,
+      alben: '',
       besterSong: '',
       herkunftsland: '',
       plattenlabel: '',
@@ -104,7 +104,6 @@ function App() {
         />
         <input
           name="alter"
-          type="number"
           placeholder="Alter"
           value={formData.alter}
           onChange={handleChange}
@@ -117,7 +116,6 @@ function App() {
         />
         <input
           name="alben"
-          type="number"
           placeholder="Anzahl Alben"
           value={formData.alben}
           onChange={handleChange}
