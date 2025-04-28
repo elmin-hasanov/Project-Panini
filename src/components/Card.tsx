@@ -32,9 +32,8 @@ function Card({
       {/* Inhalt der Karte */}
       <div className="card-content">
         <h2>{name}</h2>
-        <p>
-          {herkunftsland} – {plattenlabel}
-        </p>
+        <p>Herkunft: {herkunftsland}</p>
+        <p>Plattenlabel: {plattenlabel} </p>
         <p>Alter: {alter}</p>
         <p>Genre: {genre}</p>
         <p>Alben: {alben}</p>
